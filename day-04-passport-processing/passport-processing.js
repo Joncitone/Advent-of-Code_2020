@@ -1130,7 +1130,6 @@ function presentAndValidPassportCounter(passports, requiredFields) {
           break;
 
         case 'hgt':
-          console.log(value);
           if (value.includes('cm')) {
             let height = Number(value.split('cm')[0]);
             if (height >= 150 && height <= 193) {
