@@ -1098,10 +1098,10 @@ cid (Country ID) - ignored, missing or not.
 
 function presentAndValidPassportCounter(passports, requiredFields) {
   let validCount = 0;
-  let fieldsCount;
+  // let fieldsCount;
 
   for (passport of passports) {
-    fieldsCount = 0;
+    let fieldsCount = 0;
 
     for (field of requiredFields) {
       if (passport[field] === undefined) break;
@@ -1110,24 +1110,24 @@ function presentAndValidPassportCounter(passports, requiredFields) {
       switch (field) {
         case 'byr':
           value = Number(value);
-          if (value >= 1920 && value <= 2020) {
+          if (value >= 1920 && value <= 2002) {
             fieldsCount++;
           }
-          break;
+          continue;
 
         case 'iyr':
           value = Number(value);
           if (value >= 2010 && value <= 2020) {
             fieldsCount++;
           }
-          break;
+          continue;
 
         case 'eyr':
           value = Number(value);
           if (value >= 2020 && value <= 2030) {
             fieldsCount++;
           }
-          break;
+          continue;
 
         case 'hgt':
           if (value.includes('cm')) {
@@ -1142,7 +1142,7 @@ function presentAndValidPassportCounter(passports, requiredFields) {
               fieldsCount++;
             }
           }
-          break;
+          continue;
 
         case 'hcl':
           let validChars = '0123456789abcdef';
@@ -1155,22 +1155,23 @@ function presentAndValidPassportCounter(passports, requiredFields) {
           if (validCharCount === 6) {
             fieldsCount++;
           }
-          break;
+          continue;
 
         case 'ecl':
           let validColors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'];
           if (validColors.includes(value)) {
             fieldsCount++;
           }
-          break;
+          continue;
 
         case 'pid':
           if (value.length === 9) {
             fieldsCount++;
           }
-          break;
+          continue;
+
         default:
-          break;
+          continue;
       }
     }
     if (fieldsCount === 7) validCount++;
